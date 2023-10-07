@@ -10,6 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Funcionario {
   id Int @id @default(autoincrement())
   cpf Int
@@ -36,6 +37,5 @@ model Servicos {
   nomeDoutor String
   ubsNome String
   area String
-  data String
-  hora String
+  ficha Int
 }
