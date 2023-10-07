@@ -13,9 +13,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-app.get('/users', async (req, res) => {
+app.get('/requerimentos', async (req, res) => {
   try {
-    const users = await prisma.funcionario.findMany();
+    const users = await prisma.requerimentos.findMany();
     res.json(users);
   } catch (error) {
     console.error('Erro ao buscar usuários:', error);
@@ -24,9 +24,20 @@ app.get('/users', async (req, res) => {
 });
 
 // Criar um usuário
-app.get('/users/:fields', (req, res) => {   
-  console.log("Tive uma requisição GET");
-  console.log(req.params.fields.split('-'));
+app.get('/requerimentos/:fields', async (req, res) => {   
+  let fields = req.params.fields.split('-');
+  
+  const requirements = await prisma.requerimentos.create({
+    data: {
+      protocolo: parseInt(fields[4]),
+      nome: fields[0],
+      cpf: parseInt(fields[1]),
+      descricao: fields[2],
+      grauUrgencia: fields[3],
+    },
+  })
+
+  console.log(requirements);
 })
 
 // Iniciar o servidor
