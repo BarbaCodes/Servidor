@@ -11,7 +11,31 @@ datasource db {
 }
 
 model Funcionario {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id Int @id @default(autoincrement())
+  cpf Int
+  senha String @unique
+}
+
+model Requerimentos {
+  protocolo Int @id
+  nome String
+  cpf Int 
+  descricao String
+  grauUrgencia String
+  status Status @default(enviado)
+}
+
+enum Status {
+  enviado
+  lido
+  agendado
+}
+
+model Servicos {
+  id Int @id @default(autoincrement())
+  nomeDoutor String
+  ubsNome String
+  area String
+  data String
+  hora String
 }
