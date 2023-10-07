@@ -9,6 +9,10 @@ const prisma = new PrismaClient();
 // Middleware para lidar com JSON
 app.use(express.json());
 
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
 app.get('/users', async (req, res) => {
   try {
     const users = await prisma.funcionario.findMany();
