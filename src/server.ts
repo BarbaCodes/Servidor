@@ -26,7 +26,7 @@ app.get('/users', async (req, res) => {
 // Criar um usuário
 app.get('/users/:fields', (req, res) => {   
   console.log("Tive uma requisição GET");
-  res.send(req.params.fields.split('-'));
+  console.log(req.params.fields.split('-'));
 })
 
 // Iniciar o servidor
