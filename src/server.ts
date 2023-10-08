@@ -36,8 +36,17 @@ app.get('/requerimentos/:fields', async (req, res) => {
       grauUrgencia: fields[3],
     },
   })
+})
 
-  console.log(requirements);
+// Retorna os serviços
+app.get('/servicos', async(req, res) => {
+  try {
+    const services = await prisma.servicos.findMany();
+    res.json(services);
+  } catch (error) {
+    console.error('Erro ao buscar serviços:', error);
+    res.status(500).json({ error: 'Erro ao buscar serviços' });
+  }
 })
 
 // Iniciar o servidor
