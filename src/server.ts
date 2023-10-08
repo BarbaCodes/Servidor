@@ -13,6 +13,28 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+app.get('/cidadao', async (req, res) => {
+  try {
+    const users = await prisma.cidadao.findMany();
+    res.json(users);
+  } catch (error) {
+    console.error('Erro ao buscar usuários:', error);
+    res.status(500).json({ error: 'Erro ao buscar usuários' });
+  }
+})
+
+app.get('/cidadao/:fields', async (req, res) => {
+  let fields = req.params.fields.split('-');
+
+  const user = await prisma.cidadao.create({
+    data: {
+      cpf: fields[0],
+      nome: fields[1],
+      ficha: parseInt(fields[2]),
+    }
+  })
+})
+
 app.get('/funcionarios', async (req, res) => {
   try {
     const users = await prisma.funcionario.findMany();
@@ -59,7 +81,11 @@ app.get('/requerimentos/:fields', async (req, res) => {
       grauUrgencia: fields[3],
     },
   })
-})
+
+  res.json(requirements);
+});
+
+
 
 // Retorna os serviços
 app.get('/servicos', async(req, res) => {
@@ -70,6 +96,23 @@ app.get('/servicos', async(req, res) => {
     console.error('Erro ao buscar serviços:', error);
     res.status(500).json({ error: 'Erro ao buscar serviços' });
   }
+})
+
+// Cadastra um serviço
+app.get('/servicos/:fields', async (req, res) => {
+  let fields = req.params.fields.split('-');
+  
+  const services = await prisma.servicos.create({
+    data: {
+      nomeDoutor: fields[0],
+      ubsNome: fields[1],
+      area: fields[2],
+      horariosAtendimento: fields[3],
+      ficha: parseInt(fields[4]),
+    },
+  })
+
+  res.json(services);
 })
 
 // Iniciar o servidor
