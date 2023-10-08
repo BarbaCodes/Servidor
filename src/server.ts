@@ -13,6 +13,29 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+app.get('/funcionarios', async (req, res) => {
+  try {
+    const users = await prisma.funcionario.findMany();
+    res.json(users);
+  } catch (error) {
+    console.error('Erro ao buscar usuários:', error);
+    res.status(500).json({ error: 'Erro ao buscar usuários' });
+  }
+});
+
+app.get('/funcionarios/:fields', async (req, res) => {
+  let fields = req.params.fields.split('-');
+  
+  const user = await prisma.funcionario.create({
+    data: {
+      cpf: parseInt(fields[0]),
+      senha: fields[1],
+    },
+  })
+
+  console.log(user);
+})
+
 app.get('/requerimentos', async (req, res) => {
   try {
     const users = await prisma.requerimentos.findMany();
