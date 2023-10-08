@@ -33,6 +33,7 @@ app.get('/funcionarios/:fields', async (req, res) => {
     }
   })
 
+  console.log("Funcionário criado com sucesso!");
   res.json(user);
 })
 
@@ -59,6 +60,9 @@ app.get('/requerimentos/:fields', async (req, res) => {
       grauUrgencia: fields[3],
     },
   })
+
+  console.log("Requerimento criado com sucesso!");
+  res.json(requirements);
 })
 
 // Retorna os serviços
