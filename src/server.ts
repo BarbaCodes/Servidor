@@ -28,12 +28,12 @@ app.get('/funcionarios/:fields', async (req, res) => {
   
   const user = await prisma.funcionario.create({
     data: {
-      cpf: parseInt(fields[0]),
+      cpf: fields[0],
       senha: fields[1],
-    },
+    }
   })
 
-  console.log(user);
+  res.json(user);
 })
 
 app.get('/requerimentos', async (req, res) => {
@@ -54,7 +54,7 @@ app.get('/requerimentos/:fields', async (req, res) => {
     data: {
       protocolo: parseInt(fields[4]),
       nome: fields[0],
-      cpf: parseInt(fields[1]),
+      cpf: fields[1],
       descricao: fields[2],
       grauUrgencia: fields[3],
     },

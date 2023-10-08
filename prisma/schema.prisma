@@ -12,12 +12,12 @@ datasource db {
 
 model Funcionario {
   id Int @id @default(autoincrement())
-  cpf Int
-  senha String @unique
+  cpf String
+  senha String
 }
 
 model Cidadao {
-  cpf Int @id
+  cpf String @id
   nome String
   ficha Int
 }
@@ -25,7 +25,7 @@ model Cidadao {
 model Requerimentos {
   protocolo Int @id
   nome String
-  cpf Int 
+  cpf String 
   descricao String
   grauUrgencia String
   status Status @default(enviado)
