@@ -9,6 +9,13 @@ const prisma = new PrismaClient();
 // Middleware para lidar com JSON
 app.use(express.json());
 
+// Adicionar os cabeçalhos Access-Control-Allow-Origin
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+});
+
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
@@ -47,7 +54,7 @@ app.get('/funcionarios', async (req, res) => {
 
 app.get('/funcionarios/:fields', async (req, res) => {
   let fields = req.params.fields.split('-');
-  
+
   const user = await prisma.funcionario.create({
     data: {
       cpf: fields[0],
@@ -70,9 +77,9 @@ app.get('/requerimentos', async (req, res) => {
 });
 
 // Criar um usuário
-app.get('/requerimentos/:fields', async (req, res) => {   
+app.get('/requerimentos/:fields', async (req, res) => {
   let fields = req.params.fields.split('-');
-  
+
   const requirements = await prisma.requerimentos.create({
     data: {
       protocolo: parseInt(fields[4]),
@@ -92,7 +99,7 @@ app.get('/requerimentos/:fields', async (req, res) => {
 
 
 // Retorna os serviços
-app.get('/servicos', async(req, res) => {
+app.get('/servicos', async (req, res) => {
   try {
     const services = await prisma.servicos.findMany();
     res.json(services);
@@ -105,7 +112,7 @@ app.get('/servicos', async(req, res) => {
 // Cadastra um serviço
 app.get('/servicos/:fields', async (req, res) => {
   let fields = req.params.fields.split('-');
-  
+
   const services = await prisma.servicos.create({
     data: {
       nomeDoutor: fields[0],
