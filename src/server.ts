@@ -92,8 +92,6 @@ app.get('/requerimentos/:fields', async (req, res) => {
 
   console.log("Requerimento criado com sucesso!");
   res.json(requirements);
-
-  res.json(requirements);
 });
 
 
